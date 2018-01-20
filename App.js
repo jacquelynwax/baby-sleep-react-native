@@ -1,46 +1,18 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { Component } from 'react'
+import { StyleSheet, Text, ImageBackground, View, Button, AlertIOS, NavigatorIOS } from 'react-native'
+import { Router, Scene } from 'react-native-router-flux'
+import Welcome from './Welcome.js'
+import DetectMotion from './DetectMotion.js'
 
-export default class App extends React.Component {
-  constructor (props) {
-    super (props)
-    this.state = { camera: {} }
-  }
-
-  componentDidMount () {
-    fetch('https://developer-api.nest.com/devices/cameras/D2qIq8SXQWLkDV8mPnFrPwt--KXGUwB_Z9BbC7iJiO4LK220RAopgQ.json?auth=c.vG2CTmrCTauzhnprLZiHM4tpcLTi0zjQ2TL6ecaJzuGuFKwSxOiE50TwcBL1TwMSK32sJxXjAYtj5QnNM2qLF3CsbmdpUa8DLt2XyWwMqpPGkfO7h9vf3xD46hESsjEnoYK3qLqXW9oZTDIw', {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      this.setState({camera: responseJson})
-    })
-    .catch(err => console.log(err))
-  }
-
+export default class App extends Component {
   render() {
-    const lastEvent = this.state.camera.last_event
-
     return (
-      <View style={styles.container}>
-        <Text>Sleep While Baby Sleeps is an iOS application that triggers the iPhone’s built in alarm based on noise and motion detected by a Nest baby-monitoring camera – so that caregivers can sleep as long as baby does, without spending a restless night next to a monitor.</Text>
-        {
-          lastEvent && lastEvent.has_motion && lastEvent.has_sound && <Text>Sound and motion have been detected!</Text>
-        }
-      </View>
+      <Router>
+        <Scene key='root'>
+          <Scene key='welcome' component={ Welcome } title='Welcome' initial />
+          <Scene key='detect' component={ DetectMotion } title='Detect Motion' />
+        </Scene>
+      </Router>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
