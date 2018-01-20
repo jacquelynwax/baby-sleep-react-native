@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, ImageBackground, View, AlertIOS, Vibration } from 'react-native'
+import { StyleSheet, Text, ImageBackground, View, ActivityIndicator, AlertIOS, Vibration } from 'react-native'
 
 
 class DetectMotion extends Component {
@@ -47,9 +47,12 @@ class DetectMotion extends Component {
       <View style={styles.container}>
         <ImageBackground style={styles.backgroundContainer} source={require('./assets/stars.jpg')}>
         {
-          (lastEvent && soundOccurences > 5 && motionOccurences > 5) ?
-          Vibration.vibrate()
-          : <Text>Listening for sound and motion. You can close this app now. We have this under control. Sweet dreams!</Text>
+          (lastEvent && soundOccurences > 2 && motionOccurences > 2) ?
+          AlertIOS.alert('Sound and motion detected!') :
+          <View>
+            <Text style={styles.textContainer}>Listening now for sound and motion. You can close this app. We have this under control. Sweet dreams!</Text>
+            <ActivityIndicator size="large" color="#ffffff" />
+          </View>
         }
         </ImageBackground>
       </View>
@@ -69,26 +72,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center'
   },
-  layoutContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  headerContainer: {
-    opacity: .7,
-    alignContent: 'center',
-    backgroundColor: '#000000',
-    color: '#FFFFFF',
-    fontSize: 30,
-    paddingTop: 50
-  },
   textContainer: {
-    opacity: .7,
-    alignContent: 'center',
-    backgroundColor: '#000000',
+    backgroundColor: (0, 0, 0, 0),
     color: '#FFFFFF',
     fontSize: 20,
-    paddingRight: 15,
-    paddingLeft: 15
+    padding: 15
   }
 });

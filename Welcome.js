@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, ImageBackground, View, Button } from 'react-native'
+import { StyleSheet, Text, ImageBackground, View } from 'react-native'
 import { Actions } from 'react-native-router-flux'
+import Button from 'react-native-button'
 import DetectMotion from './DetectMotion.js'
 
 export default class App extends React.Component {
@@ -10,21 +11,16 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <ImageBackground style={styles.backgroundContainer} source={require('./assets/stars.jpg')}>
-          <View style={styles.layoutContainer}>
+      <ImageBackground style={styles.backgroundContainer} source={require('./assets/stars.jpg')}>
+        <View style={styles.container}>
+          <View style={styles.textContainer}>
             <Text style={styles.headerContainer}>Sleep While Baby Sleeps</Text>
-            <Text style={styles.textContainer}>Sleep While Baby Sleep sends you alerts when your Nest baby monitoring camera delects certain levels of noise and motion – so that you can sleep as long as baby does, without spending a restless night next to a monitor.</Text>
-              <Button
-                onPress={() => {
-                  Actions.detect()
-                }}
-                title="Get Started"
-              />
+            <Text style={styles.subtextContainer}>Sleep While Baby Sleep sends you alerts when your Nest baby monitoring camera delects certain levels of noise and motion – so that you can sleep as long as baby does, without spending a restless night next to a monitor.</Text>
           </View>
-        </ImageBackground>
-      </View>
-    );
+          <Button style={{fontSize: 20, backgroundColor: '#5bc0de', color: 'white', height: 40, width: 260, padding: 8, overflow: 'hidden', borderRadius: 4}} onPress={() => { Actions.detect() }}>Get Started</Button>
+        </View>
+      </ImageBackground>
+    )
   }
 }
 
@@ -36,28 +32,30 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center'
+    flexDirection: 'column',
+    alignItems: 'center',
   },
-  layoutContainer: {
+  alltextContainer: {
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'baseline'
   },
   headerContainer: {
-    opacity: .7,
-    alignContent: 'center',
-    backgroundColor: '#000000',
+    backgroundColor: (0, 0, 0, 0),
     color: '#FFFFFF',
     fontSize: 30,
-    paddingTop: 50
+    position: 'relative',
+    padding: 15
   },
-  textContainer: {
-    opacity: .7,
-    alignContent: 'center',
-    backgroundColor: '#000000',
+  subtextContainer: {
+    backgroundColor: (0, 0, 0, 0),
     color: '#FFFFFF',
     fontSize: 20,
-    paddingRight: 15,
-    paddingLeft: 15
+    paddingLeft: 15,
+    paddingBottom: 50
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'center'
   }
 });
